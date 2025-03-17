@@ -1,10 +1,26 @@
 const pool = require("./pool");
 
 async function getListOfPersons() {
-  const { rows } = await pool.query("SELECT firstname, lastname, address, phone_number, amount FROM persons INNER JOIN loan_amount ON persons.person_id = loan_amount.loan_id");
+  const { rows } = await pool.query("SELECT persons.person_id, firstname, lastname, address, phone_number, amount FROM persons INNER JOIN loan_amount ON persons.person_id = loan_amount.person_id");
   return rows;
 }
 
+async function addPerson({firstname, lastname, address, phone_number, amount}) {
+
+  const addPerson = await pool.query("INSERT INTO persons(firstname, lastname, address, phone_number) VALUES ($1, $2, $3, $4) RETURNING person_id", [firstname, lastname, address, phone_number]);
+
+  const person_id = addPerson.rows[0].person_id;
+
+  await pool.query("INSERT INTO loan_amount(amount, person_id) VALUES ($1, $2)", [amount, person_id]);
+}
+
+async function deletePerson(id) {
+  await pool.query("DELETE FROM loan_amount WHERE person_id = $1", [id]);
+  await pool.query("DELETE FROM persons WHERE person_id = $1", [id]);
+}
+
 module.exports = {
-  getListOfPersons
+  getListOfPersons,
+  addPerson,
+  deletePerson
 }
