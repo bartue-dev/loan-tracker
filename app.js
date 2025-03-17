@@ -7,6 +7,9 @@ const path = require("node:path");
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
+//to turn req.body into object
+app.use(express.urlencoded({extended: true}))
+
 //connect static files
 const assetsPath = path.join(__dirname, "public");
 app.use(express.static(assetsPath));
