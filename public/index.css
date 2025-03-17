@@ -1,3 +1,9 @@
+.home-container {
+  display: flex;
+  justify-content: space-around;
+  align-content: center;
+}
+
 table {
   border-collapse: collapse;
   border: 2px solid rgb(140 140 140);
@@ -10,6 +16,7 @@ caption {
   text-align: left;
   padding: 10px;
   font-weight: bold;
+  font-size: 1rem;  
 }
 
 thead {
@@ -20,6 +27,7 @@ th,
 td {
   border: 1px solid rgb(160 160 160);
   padding: 8px 10px;
+  font-size: 0.9rem;
 }
 
 td:last-of-type {
@@ -28,5 +36,35 @@ td:last-of-type {
 
 tbody > tr:nth-of-type(even) {
   background-color: rgb(237 238 242);
+}
+
+.last-column {
+  width: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  gap: 5px;
+}
+
+.delete-btn {
+  padding: 3px 10px;
+
+}
+
+a {
+  color: black;
+  font-size: 0.9rem;
+}
+
+.links {
+  margin-top: 50px;
+  padding: 10px;
+  height: 100%;
+  border-left: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
 }
 
