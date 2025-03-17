@@ -1,0 +1,58 @@
+.add-person-container {
+  display: flex;
+  justify-content: space-around;
+  align-content: center;
+}
+
+.add-form {
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  flex-direction: column;
+  gap: 10px;
+
+  border: 1px solid black;
+  padding: 20px;
+}
+
+.form-item {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+
+  font-size: 1.2rem;
+}
+
+input {
+  padding: 5px;
+  font-size: 1rem;
+}
+
+button {
+  padding: 5px 20px;
+  font-size: 1rem;
+  border-radius: 3px;
+  border: 1px solid black;
+  cursor: pointer;
+} 
+
+h1 {
+  font-size: 1.5rem;
+  text-decoration: underline;
+}
+
+.links {
+  margin-top: 50px;
+  padding: 10px;
+  height: 100%;
+  border-left: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+}
+
+a {
+  color: black;
+  font-size: 0.9rem;
+}
