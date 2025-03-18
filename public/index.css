@@ -38,18 +38,14 @@ tbody > tr:nth-of-type(even) {
   background-color: rgb(237 238 242);
 }
 
-.last-column {
-  width: 200px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 5px;
-  gap: 5px;
+button {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
 }
 
-.delete-btn {
-  padding: 3px 10px;
-
+.amount-td {
+  text-align: center;
 }
 
 a {
@@ -66,5 +62,17 @@ a {
   flex-direction: column;
   justify-content: center;
   align-items: start;
+}
+
+
+.delete-icon,
+.edit-icon {
+  width: 25px;
+}
+
+.btn-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
