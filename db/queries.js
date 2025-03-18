@@ -19,8 +19,20 @@ async function deletePerson(id) {
   await pool.query("DELETE FROM persons WHERE person_id = $1", [id]);
 }
 
+async function editPerson(id, {firstname, lastname, address, phone_number}) {
+  await pool.query("UPDATE persons SET firstname = $1 , lastname = $2, address = $3, phone_number = $4 WHERE person_id = $5", [firstname, lastname, address, phone_number, id]);
+}
+
+async function getEditForm(id) {
+  const {rows} = await pool.query("SELECT person_id, firstname, lastname, address, phone_number FROM persons WHERE person_id = $1", [id]);
+
+  return rows[0]
+}
+
 module.exports = {
   getListOfPersons,
   addPerson,
-  deletePerson
+  deletePerson,
+  editPerson,
+  getEditForm
 }
