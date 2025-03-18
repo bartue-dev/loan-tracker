@@ -10,52 +10,61 @@
 </head>
 
 <body>
-  <div class="home-container">
-    <table>
-      <caption>
-        <%= title %>
-      </caption>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Address</th>
-          <th>Phone #</th>
-          <th>Loan-amount(Php)</th>
-          <th>Options</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% listPersons.forEach(person=> { %>
-          <tr>
-            <td>
-              <%= person.firstname%>
-                <%= person.lastname %>
-            </td>
-            <td>
-              <%= person.address %>
-            </td>
-            <td>
-              <%= person.phone_number %>
-            </td>
-            <td class="amount-td">
-              <%= Number(person.amount).toLocaleString(); %>
-            </td>
-            <td>
-              <div class="btn-container">
-                <%- include("components/deleteBtn", {personId: person.person_id}) %>
-                  <%- include("components/editLinkBtn",{personId: person.person_id}) %>
-              </div>
-            </td>
-          </tr>
-          <% }) %>
-      </tbody>
-    </table>
+  <%- include("components/header") %>
 
-    <div class="links">
-      <a href="/addPerson">add person</a>
-      <a href="">search person</a>
+    <div class="home-container">
+      <div>
+        <h1>
+          <%= title %>
+        </h1>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Address</th>
+                <th>Phone #</th>
+                <th>Loan-amount(Php)</th>
+                <th>Options</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% listPersons.forEach(person=> { %>
+                <tr>
+                  <td>
+                    <%= person.firstname %>
+                      <%= person.lastname %>
+                  </td>
+                  <td>
+                    <%= person.address.split("").slice(0, 18).join("") %>...
+                  </td>
+                  <td>
+                    <%= person.phone_number %>
+                  </td>
+                  <td class="amount-td">
+                    <%= Number(person.amount).toLocaleString(); %>
+                  </td>
+                  <td>
+                    <div class="btn-container">
+                      <%- include("components/deleteBtn", {personId: person.person_id}) %>
+                        <%- include("components/editLinkBtn",{personId: person.person_id}) %>
+                          <%- include("components/viewLinkBtn", {personId: person.person_id}) %>
+                    </div>
+                  </td>
+                </tr>
+                <% }) %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="links">
+        <a href="/addPerson">add person</a>
+        <a href="">search person</a>
+      </div>
     </div>
-  </div>
+
+    <%- include("components/footer") %>
 </body>
 
 </html>
