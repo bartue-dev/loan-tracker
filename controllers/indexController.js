@@ -1,3 +1,4 @@
+const { render } = require("ejs");
 const db = require("../db/queries");
 const asyncHandler = require("express-async-handler");
 
@@ -12,7 +13,9 @@ exports.getListOfPersons = asyncHandler(async (req, res) => {
 });
 
 exports.getAddPersonForm = asyncHandler(async (req, res) => {
-  res.render("addPerson");
+  res.render("addPerson", {
+    title: "Add"
+  });
 });
 
 exports.postAddPerson = asyncHandler(async (req, res) => {
@@ -37,7 +40,10 @@ exports.getEditForm = asyncHandler(async (req, res) => {
   console.log("personal details: ", personDetails);
   
 
-  res.render("editPerson", {details: personDetails});
+  res.render("editPerson", {
+    title: "Edit",
+    details: personDetails
+  });
 });
 
 exports.postEditPerson = asyncHandler(async (req, res) => {
@@ -50,3 +56,17 @@ exports.postEditPerson = asyncHandler(async (req, res) => {
   
   res.redirect("/");
 });
+
+exports.getPersonDetails = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+
+  const details = await db.getDetails(id);
+
+  console.log("details: ", details);
+  
+
+  res.render("viewDetails", {
+    title: "Details",
+    details: details
+  });
+})
