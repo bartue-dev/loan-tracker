@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/general.css">
+  <link rel="stylesheet" href="/viewDetails.css">
+  <title>
+    <%= title %>
+  </title>
+</head>
+
+<body>
+
+  <%- include("components/header") %>
+
+    <div class="details-container">
+      <div class="details-item-container">
+        <h1>Details</h1>
+        <p>
+          Name: <%= details.firstname %>
+            <%= details.lastname %>
+        </p>
+        <p>
+          Address: <%= details.address %>
+        </p>
+        <p>
+          Phone #: <%= details.phone_number %>
+        </p>
+        <p>
+          Remaining loan: <%= Number(details.amount).toLocaleString(); %>
+        </p>
+      </div>
+
+      <div class="links">
+        <a href="/">list of persons</a>
+        <a href="">search person</a>
+      </div>
+    </div>
+
+    <%- include("components/footer") %>
+
+</body>
+
+</html>
