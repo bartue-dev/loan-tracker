@@ -1,0 +1,41 @@
+.details-container {
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  gap: 20px;
+
+  grid-row: 2;
+  padding: 30px;
+}
+
+h1 {
+  font-size: 1.5rem;
+  text-decoration: underline;
+}
+
+a {
+  color: black;
+  font-size: 0.9rem;
+}
+
+.details-item-container {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+  border: 1px solid lightgray;
+  gap: 10px;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+
+
+.links {
+  padding: 10px;
+  border-left: 1px solid lightgray;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-top: 10px;
+}

@@ -1,15 +1,38 @@
 .home-container {
   display: flex;
-  justify-content: space-around;
-  align-content: center;
+  justify-content: center;
+  align-items: start;
+  gap: 20px;
+
+  grid-row: 2;
+  padding: 30px;
+}
+
+.links {
+  padding: 10px;
+  border-left: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-top: 40px;
+}
+
+.table-container {
+  height: 300px;
+  width: 900px;
+  overflow: auto;
+  border: 1px solid lightgray;
+  scrollbar-width: none;
 }
 
 table {
   border-collapse: collapse;
-  border: 2px solid rgb(140 140 140);
+  border: 1px solid lightgray;
   font-family: sans-serif;
   font-size: 0.8rem;
   letter-spacing: 1px;
+
+  width: 100%;
 }
 
 caption {
@@ -17,6 +40,10 @@ caption {
   padding: 10px;
   font-weight: bold;
   font-size: 1rem;  
+
+  position: sticky;
+  top: 0;
+  background-color: white;
 }
 
 thead {
@@ -53,20 +80,9 @@ a {
   font-size: 0.9rem;
 }
 
-.links {
-  margin-top: 50px;
-  padding: 10px;
-  height: 100%;
-  border-left: 1px solid black;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: start;
-}
-
-
 .delete-icon,
-.edit-icon {
+.edit-icon,
+.view-more-icon {
   width: 25px;
 }
 
@@ -75,4 +91,6 @@ a {
   align-items: center;
   justify-content: center;
 }
+
+
 
