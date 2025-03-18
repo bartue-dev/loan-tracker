@@ -21,6 +21,7 @@
           <th>Address</th>
           <th>Phone #</th>
           <th>Loan-amount(Php)</th>
+          <th>Options</th>
         </tr>
       </thead>
       <tbody>
@@ -36,14 +37,14 @@
             <td>
               <%= person.phone_number %>
             </td>
+            <td class="amount-td">
+              <%= Number(person.amount).toLocaleString(); %>
+            </td>
             <td>
-              <div class="last-column">
-                <%= person.amount %>
-                  <form action="/<%= person.person_id %>/delete" method="POST">
-                    <button type="submit" class="delete-btn">Delete</button>
-                  </form>
+              <div class="btn-container">
+                <%- include("components/deleteBtn", {personId: person.person_id}) %>
+                  <%- include("components/editLinkBtn",{personId: person.person_id}) %>
               </div>
-
             </td>
           </tr>
           <% }) %>
