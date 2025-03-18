@@ -10,4 +10,8 @@ indexRouter.post("/addPerson", indexController.postAddPerson);
 
 indexRouter.post("/:id/delete", indexController.postDeletePerson);
 
+indexRouter.get("/:id/edit", indexController.getEditForm);
+
+indexRouter.post("/:id/edit", indexController.postEditPerson);
+
 module.exports = indexRouter
