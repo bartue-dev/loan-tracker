@@ -6,5 +6,18 @@
 }
 
 body {
-  padding: 30px 120px;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto 1fr auto;
+  min-height: 100vh;
+  margin: 0;
 }
+
+header {
+  grid-row: 1;
+}
+
+footer {
+  grid-row: 3;
+}
+
