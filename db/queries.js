@@ -29,10 +29,17 @@ async function getEditForm(id) {
   return rows[0]
 }
 
+async function getDetails(id) {
+  const { rows } = await pool.query("SELECT firstname, lastname, address, phone_number, amount FROM persons INNER JOIN loan_amount ON loan_amount.person_id = persons.person_id WHERE persons.person_id = $1", [id]);
+
+  return rows[0];
+}
+
 module.exports = {
   getListOfPersons,
   addPerson,
   deletePerson,
   editPerson,
-  getEditForm
+  getEditForm,
+  getDetails
 }
