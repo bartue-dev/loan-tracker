@@ -5,14 +5,25 @@
 }
 
 .add-form {
-  display: flex;
-  justify-content: center;
-  align-items: start;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   gap: 10px;
 
   border: 1px solid black;
   padding: 20px;
+}
+
+.add-form h1 {
+  grid-column: 1 / 3;
+}
+
+.add-form .loan-container {
+  grid-column: 1 / 3;
+}
+
+.add-form button {
+  grid-row: 5;
+  grid-column: 1 / 3;
 }
 
 .form-item {
