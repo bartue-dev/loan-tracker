@@ -89,3 +89,19 @@ exports.postPayPersonDetails = asyncHandler(async (req, res) => {
 
   res.redirect("/");
 });
+
+exports.getSearchDetails = asyncHandler(async (req, res) => {
+  const { searchName } = req.query;
+  let details;
+  if(searchName) {
+    details = await db.getSearchDetails(searchName);
+  }
+  console.log("Searched name:", searchName);
+  console.log("Search data: ", details);
+  
+
+  res.render("searchPerson", {
+    title: "Search",
+    details: details
+  });
+});
