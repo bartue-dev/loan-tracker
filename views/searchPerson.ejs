@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/general.css">
+  <link rel="stylesheet" href="/searchPerson.css">
+  <title>
+    <%= title %>
+  </title>
+</head>
+
+<body>
+
+  <%- include("components/header") %>
+
+    <div class="search-container">
+      <div class="search-item-container">
+        <form action="/searchPerson" method="GET">
+          <input type="text" name="searchName" placeholder="search name">
+          <button type="submit">search</button>
+        </form>
+
+        <div class="result">
+          <% if (details) { %>
+            <p>Name: <%= details.firstname %>
+                <%= details.lastname %>
+            </p>
+            <p>Addres: <%= details.address %>
+            </p>
+            <p>Phone #: <%= details.phone_number %>
+            </p>
+            <p>Remaining amount:
+              <% let msg %>
+                <% if (Number(details.amount) !==0) { %>
+                  <%= Number(details.amount).toLocaleString() %>
+                    <% } else { %>
+                      <% msg="PAID" %>
+                        <%= msg %>
+                          <% } %>
+            </p>
+            <% } %>
+        </div>
+      </div>
+
+      <div class="links">
+        <a href="/">list of persons</a>
+        <a href="">search person</a>
+      </div>
+    </div>
+
+    <%- include("components/footer") %>
+
+</body>
+
+</html>
