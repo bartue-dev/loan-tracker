@@ -70,6 +70,9 @@ button {
   background-color: transparent;
   cursor: pointer;
 }
+button:disabled {
+  display: none;
+}
 
 .amount-td {
   text-align: center;
