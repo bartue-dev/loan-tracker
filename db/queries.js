@@ -39,6 +39,20 @@ async function pay(id, payAmount) {
   await pool.query("UPDATE loan_amount SET amount = (amount - $1), pay_amount = (pay_amount + $1) WHERE person_id = $2", [payAmount, id]);
 }
 
+async function getSearchDetails(searchName) {
+
+  try {
+    const nameLower = searchName.toLowerCase();
+    const { rows } = await pool.query("SELECT firstname, lastname, address, phone_number, amount FROM persons INNER JOIN loan_amount ON persons.person_id = loan_amount.person_id WHERE LOWER(firstname) LIKE $1", [`${nameLower}%`]);
+  
+    return rows[0];
+
+  } catch (error) {
+    console.log(`getSearchDetails error: ${error}`);
+    
+  }
+}
+
 module.exports = {
   getListOfPersons,
   addPerson,
@@ -46,5 +60,6 @@ module.exports = {
   editPerson,
   getEditForm,
   getDetails,
-  pay
+  pay,
+  getSearchDetails
 }
