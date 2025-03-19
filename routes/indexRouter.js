@@ -16,4 +16,8 @@ indexRouter.post("/:id/edit", indexController.postEditPerson);
 
 indexRouter.get("/:id/viewMore", indexController.getPersonDetails);
 
+indexRouter.get("/:id/payment", indexController.getPayPersonDetails);
+
+indexRouter.post("/:id/payment", indexController.postPayPersonDetails);
+
 module.exports = indexRouter
