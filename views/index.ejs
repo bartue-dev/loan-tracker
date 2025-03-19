@@ -42,13 +42,20 @@
                     <%= person.phone_number %>
                   </td>
                   <td class="amount-td">
-                    <%= Number(person.amount).toLocaleString(); %>
+                    <% let msg %>
+                      <% if (Number(person.amount) !==0) { %>
+                        <%= Number(person.amount).toLocaleString() %>
+                          <% } else { %>
+                            <% msg="PAID" %>
+                              <%= msg %>
+                                <% } %>
                   </td>
                   <td>
                     <div class="btn-container">
                       <%- include("components/deleteBtn", {personId: person.person_id}) %>
                         <%- include("components/editLinkBtn",{personId: person.person_id}) %>
-                          <%- include("components/viewLinkBtn", {personId: person.person_id}) %>
+                          <%- include("components/payLinkBtn", {personId: person.person_id, msg: msg}) %>
+                            <%- include("components/viewLinkBtn", {personId: person.person_id}) %>
                     </div>
                   </td>
                 </tr>
