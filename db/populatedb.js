@@ -14,20 +14,13 @@ phone_number VARCHAR(50) NOT NULL
 
 CREATE TABLE IF NOT EXISTS loan_amount(
 loan_id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-amount INTEGER NOT NULL,
+amount BIGINT NOT NULL,
+pay_amount BIGINT DEFAULT 0,
 person_id INTEGER NOT NULL,
 CONSTRAINT fk_persons
 FOREIGN KEY(person_id)
 REFERENCES persons(person_id));
 
-INSERT INTO persons(
-firstname,
-lastname,
-address,
-phone_number) VALUES(
-'Bart', 'Batiancila', 'Prk. Malabarbas Polomolok South Cotabato', '09105359425');
-
-INSERT INTO loan_amount(amount, person_id) VALUES(5000, 1);
 `
 
 
