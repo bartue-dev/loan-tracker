@@ -69,4 +69,23 @@ exports.getPersonDetails = asyncHandler(async (req, res) => {
     title: "Details",
     details: details
   });
-})
+});
+
+exports.getPayPersonDetails = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  const details = await db.getDetails(id)
+
+  res.render("pay", {
+    title: "Payment",
+    details: details
+  });
+});
+
+exports.postPayPersonDetails = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  const { pay_amount } = req.body;
+
+  await db.pay(id, pay_amount);
+
+  res.redirect("/");
+});
