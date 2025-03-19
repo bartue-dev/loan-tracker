@@ -30,9 +30,13 @@ async function getEditForm(id) {
 }
 
 async function getDetails(id) {
-  const { rows } = await pool.query("SELECT firstname, lastname, address, phone_number, amount FROM persons INNER JOIN loan_amount ON loan_amount.person_id = persons.person_id WHERE persons.person_id = $1", [id]);
+  const { rows } = await pool.query("SELECT persons.person_id, firstname, lastname, address, phone_number, amount FROM persons INNER JOIN loan_amount ON loan_amount.person_id = persons.person_id WHERE persons.person_id = $1", [id]);
 
   return rows[0];
+}
+
+async function pay(id, payAmount) {
+  await pool.query("UPDATE loan_amount SET amount = (amount - $1), pay_amount = (pay_amount + $1) WHERE person_id = $2", [payAmount, id]);
 }
 
 module.exports = {
@@ -41,5 +45,6 @@ module.exports = {
   deletePerson,
   editPerson,
   getEditForm,
-  getDetails
+  getDetails,
+  pay
 }
