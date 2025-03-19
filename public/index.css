@@ -10,7 +10,7 @@
 
 .links {
   padding: 10px;
-  border-left: 1px solid black;
+  border-left: 1px solid lightgray;
   display: flex;
   flex-direction: column;
   gap: 5px;
@@ -18,7 +18,7 @@
 }
 
 .table-container {
-  height: 300px;
+  max-height: 400px;
   width: 900px;
   overflow: auto;
   border: 1px solid lightgray;
@@ -82,7 +82,8 @@ a {
 
 .delete-icon,
 .edit-icon,
-.view-more-icon {
+.view-more-icon,
+.pay-icon {
   width: 25px;
 }
 
@@ -90,6 +91,7 @@ a {
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 5px;
 }
 
 
