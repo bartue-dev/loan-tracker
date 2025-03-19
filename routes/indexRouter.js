@@ -20,4 +20,6 @@ indexRouter.get("/:id/payment", indexController.getPayPersonDetails);
 
 indexRouter.post("/:id/payment", indexController.postPayPersonDetails);
 
+indexRouter.get("/searchPerson", indexController.getSearchDetails);
+
 module.exports = indexRouter
