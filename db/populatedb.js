@@ -19,7 +19,9 @@ pay_amount BIGINT DEFAULT 0,
 person_id INTEGER NOT NULL,
 CONSTRAINT fk_persons
 FOREIGN KEY(person_id)
-REFERENCES persons(person_id));
+REFERENCES persons(person_id)
+ON DELETE CASCADE
+);
 
 `
 
