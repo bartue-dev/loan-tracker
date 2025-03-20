@@ -1,9 +1,10 @@
-const { render } = require("ejs");
 const db = require("../db/queries");
 const asyncHandler = require("express-async-handler");
+const { validationResult } = require("express-validator");
+const { validateInputs } = require("../errorHandler/validator")
 
-
-exports.getListOfPersons = asyncHandler(async (req, res) => {
+//get all data
+exports.getListOfPersons = asyncHandler(async (req, res, next) => {
   const listOfPersons = await db.getListOfPersons();
 
   res.render("index", {
@@ -12,28 +13,43 @@ exports.getListOfPersons = asyncHandler(async (req, res) => {
   });
 });
 
-exports.getAddPersonForm = asyncHandler(async (req, res) => {
+//render person form
+exports.getAddPersonForm = asyncHandler(async (req, res, next) => {
   res.render("addPerson", {
-    title: "Add"
+    title: "Add",
+    errors: []
   });
 });
 
-exports.postAddPerson = asyncHandler(async (req, res) => {
-  const { firstname, lastname, address, phone_number, amount } = req.body;
+//add data
+exports.postAddPerson = [ validateInputs, asyncHandler(async (req, res, next) => {
+  const errors = validationResult(req);
 
-  await db.addPerson({firstname, lastname, address, phone_number, amount});
+  if (!errors.isEmpty()) {
+    return res.status(400).render("addPerson", {
+      title: "Add",
+      errors: errors.array()
+    });
+  } else {
+    const { firstname, lastname, address, phone_number, amount } = req.body;
+  
+    await db.addPerson({firstname, lastname, address, phone_number, amount});
 
-  res.redirect("/")
-});
+    res.redirect("/");
+  }
+})
+];
 
-exports.postDeletePerson = asyncHandler(async (req, res) => {
+//delete single data
+exports.postDeletePerson = asyncHandler(async (req, res, next) => {
   const { id } = req.params;
   await db.deletePerson(id);
 
   res.redirect("/");
 });
 
-exports.getEditForm = asyncHandler(async (req, res) => {
+//render edit form
+exports.getEditForm = asyncHandler(async (req, res, next) => {
   const { id } = req.params;
   const personDetails = await db.getEditForm(id);
 
@@ -46,6 +62,7 @@ exports.getEditForm = asyncHandler(async (req, res) => {
   });
 });
 
+//edit or update data
 exports.postEditPerson = asyncHandler(async (req, res) => {
   const { id } = req.params;
   const { firstname, lastname, address, phone_number } = req.body;
@@ -57,7 +74,8 @@ exports.postEditPerson = asyncHandler(async (req, res) => {
   res.redirect("/");
 });
 
-exports.getPersonDetails = asyncHandler(async (req, res) => {
+//get specific data
+exports.getPersonDetails = asyncHandler(async (req, res, next) => {
   const { id } = req.params;
 
   const details = await db.getDetails(id);
@@ -71,7 +89,8 @@ exports.getPersonDetails = asyncHandler(async (req, res) => {
   });
 });
 
-exports.getPayPersonDetails = asyncHandler(async (req, res) => {
+//render specific row data to the page
+exports.getPayPersonDetails = asyncHandler(async (req, res, next) => {
   const { id } = req.params;
   const details = await db.getDetails(id)
 
@@ -81,7 +100,8 @@ exports.getPayPersonDetails = asyncHandler(async (req, res) => {
   });
 });
 
-exports.postPayPersonDetails = asyncHandler(async (req, res) => {
+//add pay_amount and update the amount by subtracting the pay_amount
+exports.postPayPersonDetails = asyncHandler(async (req, res, next) => {
   const { id } = req.params;
   const { pay_amount } = req.body;
 
@@ -90,7 +110,8 @@ exports.postPayPersonDetails = asyncHandler(async (req, res) => {
   res.redirect("/");
 });
 
-exports.getSearchDetails = asyncHandler(async (req, res) => {
+//get the searchName then render it to the search page
+exports.getSearchDetails = asyncHandler(async (req, res, next) => {
   const { searchName } = req.query;
   let details;
   if(searchName) {
