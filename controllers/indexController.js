@@ -1,7 +1,7 @@
 const db = require("../db/queries");
 const asyncHandler = require("express-async-handler");
 const { validationResult } = require("express-validator");
-const { validateInputs } = require("../errorHandler/validator")
+const { validateAddForm, validateEditForm } = require("../errorHandler/validator")
 
 //get all data
 exports.getListOfPersons = asyncHandler(async (req, res, next) => {
@@ -22,7 +22,7 @@ exports.getAddPersonForm = asyncHandler(async (req, res, next) => {
 });
 
 //add data
-exports.postAddPerson = [ validateInputs, asyncHandler(async (req, res, next) => {
+exports.postAddPerson = [ validateAddForm, asyncHandler(async (req, res, next) => {
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
@@ -58,21 +58,37 @@ exports.getEditForm = asyncHandler(async (req, res, next) => {
 
   res.render("editPerson", {
     title: "Edit",
-    details: personDetails
+    details: personDetails,
+    errors: []
   });
 });
 
 //edit or update data
-exports.postEditPerson = asyncHandler(async (req, res) => {
+exports.postEditPerson = [ validateEditForm, asyncHandler(async (req, res) => {
+  const errors = validationResult(req);
   const { id } = req.params;
   const { firstname, lastname, address, phone_number } = req.body;
 
-  console.log("req query: ", req.body);
-
-  await db.editPerson(id, { firstname, lastname, address, phone_number })
+  console.log("post edit:", req.body);
   
-  res.redirect("/");
-});
+  const personDetails = await db.getEditForm(id)
+
+  if (!errors.isEmpty()) {
+    return res.status(400).render("editPerson", {
+      title: "Edit",
+      details: personDetails,
+      errors: errors.array()
+    });
+  } else {
+  
+    console.log("req query: ", req.body);
+  
+    await db.editPerson(id, { firstname, lastname, address, phone_number })
+    
+    res.redirect("/");
+  }
+})
+];
 
 //get specific data
 exports.getPersonDetails = asyncHandler(async (req, res, next) => {
