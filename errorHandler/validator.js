@@ -34,7 +34,14 @@ const validateEditForm = [
     .notEmpty().withMessage(`Phone # ${emptyError}`)
 ]
 
+const validatePayment = [
+  body("pay_amount").trim()
+    .notEmpty().withMessage(`Payment amount ${emptyError}`)
+    .isInt().withMessage("Payment amount must be a number")
+]
+
 module.exports = {
   validateAddForm,
-  validateEditForm
+  validateEditForm,
+  validatePayment
 };
