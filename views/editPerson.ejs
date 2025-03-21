@@ -16,38 +16,39 @@
   <%- include("components/header") %>
 
     <div class="edit-person-container">
-      <form action="/<%= details.person_id %>/edit" method="POST" class="edit-form">
-        <h1>Edit Person Details</h1>
-        <div class="form-item">
-          <label for="firstname">Firstname:</label>
-          <input type="text" id="firstname" name="firstname" value="<%= details.firstname %>">
-        </div>
+      <%- include("partials/inputError") %>
+        <form action="/<%= details.person_id %>/edit" method="POST" class="edit-form">
+          <h1>Edit Person Details</h1>
+          <div class="form-item">
+            <label for="firstname">Firstname:</label>
+            <input type="text" id="firstname" name="firstname" value="<%= details.firstname %>">
+          </div>
 
-        <div class="form-item">
-          <label for="lastname">Lastname:</label>
-          <input type="text" id="lastname" name="lastname" value="<%= details.lastname %>">
-        </div>
+          <div class="form-item">
+            <label for="lastname">Lastname:</label>
+            <input type="text" id="lastname" name="lastname" value="<%= details.lastname %>">
+          </div>
 
-        <div class="form-item">
-          <label for="address">Address:</label>
-          <input type="text" id="address" name="address" value="<%= details.address %>">
-        </div>
+          <div class="form-item">
+            <label for="address">Address:</label>
+            <input type="text" id="address" name="address" value="<%= details.address %>">
+          </div>
 
-        <div class="form-item">
-          <label for="phone-number">Phone #:</label>
-          <input type="number" id="phone-number" name="phone_number" value="<%= details.phone_number %>">
-        </div>
+          <div class="form-item">
+            <label for="phone-number">Phone #:</label>
+            <input type="number" id="phone-number" name="phone_number" value="<%= Number(details.phone_number) %>">
+          </div>
 
-        <div class="btn-container">
-          <button type="submit">Submit</button>
-          <a href="/" class="cancel-btn">Cancel</a>
-        </div>
-      </form>
+          <div class="btn-container">
+            <button type="submit" onclick="return confirm('You sure to edit details?')">Submit</button>
+            <a href="/" class="cancel-btn">Cancel</a>
+          </div>
+        </form>
 
-      <div class="links">
-        <a href="/">list of persons</a>
-        <a href="">search person</a>
-      </div>
+        <div class="links">
+          <a href="/">list of persons</a>
+          <a href="">search person</a>
+        </div>
     </div>
 
     <%- include("components/footer") %>
