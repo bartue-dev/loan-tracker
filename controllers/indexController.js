@@ -1,7 +1,7 @@
 const db = require("../db/queries");
 const asyncHandler = require("express-async-handler");
 const { validationResult } = require("express-validator");
-const { validateAddForm, validateEditForm } = require("../errorHandler/validator")
+const { validateAddForm, validateEditForm, validatePayment } = require("../errorHandler/validator")
 
 //get all data
 exports.getListOfPersons = asyncHandler(async (req, res, next) => {
@@ -53,9 +53,6 @@ exports.getEditForm = asyncHandler(async (req, res, next) => {
   const { id } = req.params;
   const personDetails = await db.getEditForm(id);
 
-  console.log("personal details: ", personDetails);
-  
-
   res.render("editPerson", {
     title: "Edit",
     details: personDetails,
@@ -69,8 +66,6 @@ exports.postEditPerson = [ validateEditForm, asyncHandler(async (req, res) => {
   const { id } = req.params;
   const { firstname, lastname, address, phone_number } = req.body;
 
-  console.log("post edit:", req.body);
-  
   const personDetails = await db.getEditForm(id)
 
   if (!errors.isEmpty()) {
@@ -80,8 +75,6 @@ exports.postEditPerson = [ validateEditForm, asyncHandler(async (req, res) => {
       errors: errors.array()
     });
   } else {
-  
-    console.log("req query: ", req.body);
   
     await db.editPerson(id, { firstname, lastname, address, phone_number })
     
@@ -96,9 +89,6 @@ exports.getPersonDetails = asyncHandler(async (req, res, next) => {
 
   const details = await db.getDetails(id);
 
-  console.log("details: ", details);
-  
-
   res.render("viewDetails", {
     title: "Details",
     details: details
@@ -112,19 +102,32 @@ exports.getPayPersonDetails = asyncHandler(async (req, res, next) => {
 
   res.render("pay", {
     title: "Payment",
-    details: details
+    details: details,
+    errors: []
   });
 });
 
 //add pay_amount and update the amount by subtracting the pay_amount
-exports.postPayPersonDetails = asyncHandler(async (req, res, next) => {
+exports.postPayPersonDetails = [ validatePayment ,asyncHandler(async (req, res, next) => {
+  const errors = validationResult(req);
   const { id } = req.params;
   const { pay_amount } = req.body;
 
-  await db.pay(id, pay_amount);
+  const details = await db.getDetails(id);
 
-  res.redirect("/");
-});
+  if (!errors.isEmpty()) {
+    return res.status(400).render("pay", {
+      title: "Payment",
+      details: details,
+      errors: errors.array()
+    })
+  } else {
+    await db.pay(id, pay_amount);
+  
+    res.redirect("/");
+  }
+})
+];
 
 //get the searchName then render it to the search page
 exports.getSearchDetails = asyncHandler(async (req, res, next) => {
@@ -133,10 +136,7 @@ exports.getSearchDetails = asyncHandler(async (req, res, next) => {
   if(searchName) {
     details = await db.getSearchDetails(searchName);
   }
-  console.log("Searched name:", searchName);
-  console.log("Search data: ", details);
   
-
   res.render("searchPerson", {
     title: "Search",
     details: details
