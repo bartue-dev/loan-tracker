@@ -14,47 +14,48 @@
   <%- include("components/header") %>
 
     <div class="pay-container">
-      <form action="/<%= details.person_id %>/payment" method="POST" class="pay-form">
-        <h1>
-          <%= title%>
-        </h1>
-        <div class="form-item">
-          <h2> Name: </h2>
-          <p>
-            <%= details.firstname%>
-              <%= details.lastname%>
-          </p>
-        </div>
-        <div class="form-item">
-          <h2>Address:</h2>
-          <p>
-            <%= details.address %>
-          </p>
-        </div>
-        <div class="form-item">
-          <h2>Phone #:</h2>
-          <p>
-            <%= details.phone_number %>
-          </p>
-        </div>
-        <div class="form-item">
-          <h2>Remaining loan:</h2>
-          <p>
-            Php <%= Number(details.amount).toLocaleString(); %>
-          </p>
-        </div>
-        <div class="form-item pay-input">
-          <label for="pay-amount">Payment amount:</label>
-          <input type="number" id="pay-amount" name="pay_amount">
-        </div>
+      <%- include("partials/inputError") %>
+        <form action="/<%= details.person_id %>/payment" method="POST" class="pay-form">
+          <h1>
+            <%= title%>
+          </h1>
+          <div class="form-item">
+            <h2> Name: </h2>
+            <p>
+              <%= details.firstname%>
+                <%= details.lastname%>
+            </p>
+          </div>
+          <div class="form-item">
+            <h2>Address:</h2>
+            <p>
+              <%= details.address %>
+            </p>
+          </div>
+          <div class="form-item">
+            <h2>Phone #:</h2>
+            <p>
+              <%= details.phone_number %>
+            </p>
+          </div>
+          <div class="form-item">
+            <h2>Remaining loan:</h2>
+            <p>
+              Php <%= Number(details.amount).toLocaleString(); %>
+            </p>
+          </div>
+          <div class="form-item pay-input">
+            <label for="pay-amount">Payment amount:</label>
+            <input type="number" id="pay-amount" name="pay_amount">
+          </div>
 
-        <button type="submit">Submit</button>
-      </form>
+          <button type="submit" onclick="return confirm('Confirm to proceed the payment')">Submit</button>
+        </form>
 
-      <div class="links">
-        <a href="/">list of person</a>
-        <a href="">search person</a>
-      </div>
+        <div class="links">
+          <a href="/">list of person</a>
+          <a href="">search person</a>
+        </div>
     </div>
 
     <%- include("components/footer") %>
